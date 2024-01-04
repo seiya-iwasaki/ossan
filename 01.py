@@ -21,7 +21,7 @@ finess = 0.01
 open_cell = [12.1,16.125]
 cell_length = [6,8]
 
-index_a = [1.5,2.0,3.0]
+index_a = [3.0,2.0,1.5]
 index_mu = [0.4,0.5,0.6] 
 
 def truncate(number, digits) -> float:
@@ -161,16 +161,16 @@ with open('conditions.csv', 'r') as cfd, open('points.csv', 'w+') as pfd:
 
         floor_weight_force = S*sq_unit_floor_weight_force
 
-        unit_base_weight_force = floor_weight_force/(base_depth+fl+floor_hight/2)
-
         weight_reduction_rate = 1 - 2*(cell_num[0]*open_cell[0]+cell_num[1]*open_cell[1])/(S*(floor_num+1)+2*(cell_num[0]*open_cell[0]+cell_num[1]*open_cell[1]))
 
-        if(conditions[3]==0): #skelton case
-            unit_floor_weight_force = floor_weight_force/floor_hight
-            W = floor_weight_force*(conditions[2]+1) #floor plus basement
-        else:
-            unit_floor_weight_force = (floor_weight_force*weight_reduction_rate)/floor_hight
-            W = weight_reduction_rate*floor_weight_force*(conditions[2]+1) #floor plus basement
+        unit_floor_weight_force = floor_weight_force/floor_hight
+        unit_base_weight_force = floor_weight_force/(base_depth+fl+floor_hight/2)
+        W = floor_weight_force*(conditions[2]+1) 
+
+        if(conditions[3]==1): #skelton case
+            unit_floor_weight_force *= weight_reduction_rate
+            unit_base_weight_force *= weight_reduction_rate
+            W *= weight_reduction_rate
 
         H = floor_hight*conditions[2]+fl
 
