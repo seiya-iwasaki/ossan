@@ -52,12 +52,13 @@ def baloon(x_lst,S,W,H):
 
 def partial_sunk(x_lst,S,W,H):
     y_lst = []
+    dx = x_lst[1]-x_lst[0]
     for i, x in enumerate(x_lst):
         base_float = rho_g*S*(fl+base_depth)
         if x > H+floor_hight/2:
             y_lst.append(y_lst[-1])
         elif x > H:
-            top_float = effective_float_weight_ratio*unit_floor_weight_force*(x-H)
+            top_float = effective_float_weight_ratio*unit_floor_weight_force*dx
             y_lst.append(y_lst[-1]-top_float)
         elif x<=0 : 
             y_lst.append(W)
@@ -97,12 +98,13 @@ def partial_sunk(x_lst,S,W,H):
 
 def all_sunk(x_lst,S,W,H):
     y_lst = []
+    dx = x_lst[1]-x_lst[0]
     for i, x in enumerate(x_lst):
         base_float = rho_g*S*(fl+base_depth)
         if x > H+floor_hight/2:
             y_lst.append(y_lst[-1])
         elif x > H:
-            top_float = effective_float_weight_ratio*unit_floor_weight_force*(x-H)
+            top_float = effective_float_weight_ratio*unit_floor_weight_force*dx
             y_lst.append(y_lst[-1]-top_float)
         elif x<=0 : 
             y_lst.append(W)
