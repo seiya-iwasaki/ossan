@@ -35,14 +35,17 @@ def truncate(number, digits) -> float:
 
 def baloon(x_lst,S,W,H):
     y_lst = []
+    dx = x_lst[1]-x_lst[0]
     for i, x in enumerate(x_lst):
-        if x > H:
+        if x > H+floor_hight/2:
             y_lst.append(y_lst[-1])
+        elif x > H:
+            top_float = effective_float_weight_ratio*unit_floor_weight_force*dx
+            y_lst.append(y_lst[-1]-top_float)
         elif x<=0 : 
             y_lst.append(W)
         else:
             y = W-(rho_g*S*(x+base_depth))
-            if y < 0 : y = 0
             y_lst.append(y)
 
     for i, y in  enumerate(y_lst):
