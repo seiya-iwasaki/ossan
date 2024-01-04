@@ -53,29 +53,37 @@ def baloon(x_lst,S,W,H):
 def partial_sunk(x_lst,S,W,H):
     y_lst = []
     for i, x in enumerate(x_lst):
-        if x > H:
+        base_float = rho_g*S*(fl+base_depth)
+        if x > H+floor_hight/2:
             y_lst.append(y_lst[-1])
+        elif x > H:
+            top_float = effective_float_weight_ratio*unit_floor_weight_force*(x-H)
+            y_lst.append(y_lst[-1]-top_float)
         elif x<=0 : 
             y_lst.append(W)
         elif x < fl :
             base_float = rho_g*S*(x+base_depth)
             y = W-base_float
             y_lst.append(y)
+        elif x < fl+(floor_hight/2):
+            base_float += effective_float_weight_ratio*unit_base_weight_force*(x-fl)
+            y = W-base_float
+            y_lst.append(y)
         elif x < fl+opening_top:
-            base_float = rho_g*S*(fl+base_depth)
-            first_float = effective_float_weight_ratio*unit_floor_weight_force*(x-fl)
+            base_float += effective_float_weight_ratio*unit_base_weight_force*(floor_hight/2)
+            first_float = effective_float_weight_ratio*unit_floor_weight_force*(x-floor_hight/2-fl)
             y = W-base_float-first_float
             y_lst.append(y)
         else:
             f_number = (x-(fl+opening_top)) // floor_hight
             f_x = (x-(fl+opening_top)) % floor_hight
 
-            base_float = rho_g*S*(fl+base_depth)
-            first_float = effective_float_weight_ratio*unit_floor_weight_force*(opening_top)
+            base_float += effective_float_weight_ratio*unit_base_weight_force*(floor_hight/2)
+            first_float = effective_float_weight_ratio*unit_floor_weight_force*(opening_top-floor_hight/2)
 
             upper_floor_float = f_number*((effective_float_weight_ratio*unit_floor_weight_force*opening_top)+(rho_g*S*air_pool_hight))
-
             y = W - base_float - first_float - upper_floor_float
+
             if f_x<=air_pool_hight+opening_bottom:
                 y -= rho_g*S*f_x
             else:
@@ -90,25 +98,33 @@ def partial_sunk(x_lst,S,W,H):
 def all_sunk(x_lst,S,W,H):
     y_lst = []
     for i, x in enumerate(x_lst):
-        if x > H:
+        base_float = rho_g*S*(fl+base_depth)
+        if x > H+floor_hight/2:
             y_lst.append(y_lst[-1])
+        elif x > H:
+            top_float = effective_float_weight_ratio*unit_floor_weight_force*(x-H)
+            y_lst.append(y_lst[-1]-top_float)
         elif x<=0 : 
             y_lst.append(W)
         elif x < fl :
             base_float = rho_g*S*(x+base_depth)
             y = W-base_float
             y_lst.append(y)
+        elif x < fl+(floor_hight/2):
+            base_float += effective_float_weight_ratio*unit_base_weight_force*(x-fl)
+            y = W-base_float
+            y_lst.append(y)
         elif x < fl+opening_top:
-            base_float = rho_g*S*(fl+base_depth)
-            first_float = effective_float_weight_ratio*unit_floor_weight_force*(x-fl)
+            base_float += effective_float_weight_ratio*unit_base_weight_force*(floor_hight/2)
+            first_float = effective_float_weight_ratio*unit_floor_weight_force*(x-floor_hight/2-fl)
             y = W-base_float-first_float
             y_lst.append(y)
         else:
             f_number = (x-(fl+opening_top)) // floor_hight
             f_x = (x-(fl+opening_top)) % floor_hight
             
-            base_float = rho_g*S*(fl+base_depth)
-            first_float = effective_float_weight_ratio*unit_floor_weight_force*(opening_top)
+            base_float += effective_float_weight_ratio*unit_base_weight_force*(floor_hight/2)
+            first_float = effective_float_weight_ratio*unit_floor_weight_force*(opening_top-floor_hight/2)
 
             upper_floor_float = f_number*(effective_float_weight_ratio*unit_floor_weight_force*floor_hight)
 
