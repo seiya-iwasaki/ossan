@@ -164,7 +164,7 @@ def tsunami_moment_func(x_lst, a, B, H):
         if x*a < H:
             y_lst.append((1/3)*a*x*(1/2)*rho_g*B*a*a*(x*x))
         else:
-            y_lst.append((3*a*x-2*H)/(6*a*x-3*H)*H*(1/2)*rho_g*B*(2*a*x*H-(H*H)))
+            y_lst.append(((3*a*x-2*H)/(6*a*x-3*H))*H*(1/2)*rho_g*B*(2*a*x*H-(H*H)))
     return np.array(y_lst)
 
 
