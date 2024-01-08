@@ -284,7 +284,6 @@ with open('conditions.csv', 'r') as cfd, open('points_fall.csv', 'w+') as pfd:
                 axis[i,j].set_ylim(0,300000)
         
         writer.writerow(points)
-
     
     pfd.close()
 
