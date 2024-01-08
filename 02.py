@@ -211,7 +211,10 @@ with open('conditions.csv', 'r') as cfd, open('points_fall.csv', 'w+') as pfd:
 
             B = conditions[i] #0,1->X,Y width
 
-            arm = (B+0.5)/2
+            if i==0:
+                arm = (conditions[1]+0.5)/2
+            else:
+                arm = (conditions[0]+0.5)/2
 
             x = np.arange(0, 10, finess)
 
